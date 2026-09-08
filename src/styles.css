@@ -77,3 +77,22 @@ textarea { min-height: 100px; resize: vertical; }
 .response-answer p { margin-bottom: 0; color: #53615c; white-space: pre-wrap; }
 @media (max-width: 760px) { .auth-layout, .registration-content, .editor-content { display: block; } .intro-panel { min-height: 44vh; padding: 3rem 1.5rem; } .intro-panel h1, .registration-copy h1 { font-size: 3.2rem; } .accent-line { margin-top: 2.5rem; } .form-panel { max-width: none; padding: 3.5rem 1.5rem; } .topbar { align-items: flex-start; padding: 1.5rem; } .topbar-actions { align-items: flex-end; flex-direction: column; gap: .7rem; } .registration-content, .dashboard-content, .editor-content, .take-content, .results-content { padding: 3.5rem 1.5rem; } .registration-copy, .editor-content > div { margin-bottom: 3rem; } .dashboard-heading { display: block; } .compact-button { margin-top: 1.5rem; } }
 @media (max-width: 460px) { .field-grid { display: block; } .field { display: block; } }
+.theme-control { position: absolute; top: 2rem; right: 3rem; z-index: 1; }
+.theme-toggle { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid #557f6d; padding: .55rem .75rem; color: #1e4c3c; background: transparent; font-size: .78rem; font-weight: 700; }
+.theme-toggle:hover { color: #fff; background: #1e4c3c; }
+[data-theme="dark"] { color-scheme: dark; }
+[data-theme="dark"] body, [data-theme="dark"] .auth-layout, [data-theme="dark"] .registration-shell, [data-theme="dark"] .center-message { color: #e6eee9; background: #17221f; }
+[data-theme="dark"] .intro-panel { background-color: #29463b; background-image: linear-gradient(135deg, rgba(255,255,255,.08), transparent 45%), radial-gradient(circle at 75% 20%, rgba(255,255,255,.12) 0 1px, transparent 2px); }
+[data-theme="dark"] .eyebrow, [data-theme="dark"] .step-label, [data-theme="dark"] .text-button, [data-theme="dark"] .quiet-link { color: #a7c7b7; }
+[data-theme="dark"] .intro-panel p, [data-theme="dark"] .form-heading p, [data-theme="dark"] .registration-copy p, [data-theme="dark"] .dashboard-heading p, [data-theme="dark"] .editor-content > div p, [data-theme="dark"] .take-content > p, [data-theme="dark"] .results-summary p, [data-theme="dark"] .draft-status, [data-theme="dark"] .exam-card p, [data-theme="dark"] .exam-card small, [data-theme="dark"] .response-card small, [data-theme="dark"] .empty-state { color: #b5c6bd; }
+[data-theme="dark"] .topbar { border-color: #385047; }
+[data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { border-color: #486157; color: #e6eee9; background: #21332c; }
+[data-theme="dark"] .exam-card, [data-theme="dark"] .response-card, [data-theme="dark"] .question-editor { border-color: #385047; background: #1d2d27; }
+[data-theme="dark"] .empty-state { background: #263b32; }
+[data-theme="dark"] .user-badge, [data-theme="dark"] .success-message { color: #bfe2ce; background: #294b3d; }
+[data-theme="dark"] .form-error { background: #4d2925; }
+[data-theme="dark"] .response-answer { border-color: #385047; }
+[data-theme="dark"] .response-answer p { color: #b5c6bd; }
+[data-theme="dark"] .secondary-button, [data-theme="dark"] .theme-toggle { color: #a7c7b7; border-color: #6caa8b; }
+[data-theme="dark"] .secondary-button:hover, [data-theme="dark"] .theme-toggle:hover { color: #17221f; background: #a7c7b7; }
+@media (max-width: 760px) { .theme-control { top: 1.5rem; right: 1.5rem; } .theme-control .theme-toggle span:last-child { display: none; } }

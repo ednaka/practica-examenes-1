@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import { api } from "../api";
 import { validateRegistration } from "../validation";
+import { ThemeToggle } from "../theme";
 
 const initialValues = { nombre: "", telefono: "", correo: "", direccion: "", edad: "" };
 
@@ -52,7 +53,7 @@ export function RegistrationPage() {
     <main className="registration-shell">
       <header className="topbar">
         <div><span className="eyebrow">Portal de admisiones</span><strong>Registro de examen</strong></div>
-        <div className="topbar-actions"><a className="text-button" href="/examenes">Mis exámenes</a><button className="text-button" type="button" onClick={handleLogout}>Cerrar sesión <span aria-hidden="true">↗</span></button></div>
+        <div className="topbar-actions"><ThemeToggle /><a className="text-button" href="/examenes">Mis exámenes</a><button className="text-button" type="button" onClick={handleLogout}>Cerrar sesión <span aria-hidden="true">↗</span></button></div>
       </header>
       <section className="registration-content" aria-labelledby="registration-title">
         <div className="registration-copy"><span className="step-label">02 / Registro</span><h1 id="registration-title">Reserva tu lugar.</h1><p>Completa tus datos personales para avanzar con tu inscripción al examen.</p></div>

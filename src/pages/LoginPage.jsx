@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import { validateLogin } from "../validation";
+import { ThemeToggle } from "../theme";
 
 export function LoginPage() {
   const { login } = useAuth();
@@ -42,6 +43,7 @@ export function LoginPage() {
 
   return (
     <main className="auth-layout">
+      <div className="theme-control"><ThemeToggle /></div>
       <section className="intro-panel">
         <span className="eyebrow">Portal de admisiones</span>
         <h1>Tu próximo paso empieza aquí.</h1>

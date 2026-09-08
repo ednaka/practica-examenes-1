@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../auth";
+import { ThemeToggle } from "../theme";
 
 const emptyQuestion = () => ({ text: "", type: "text", options: ["", ""], required: true });
 
@@ -25,7 +26,7 @@ export function ExamsPage() {
     <main className="registration-shell">
       <header className="topbar">
         <div><span className="eyebrow">Portal de exámenes</span><strong>Mis formularios</strong></div>
-        <div className="topbar-actions"><span className="user-badge">{user?.username}</span><button className="text-button" onClick={handleLogout}>Cerrar sesión ↗</button></div>
+        <div className="topbar-actions"><ThemeToggle /><span className="user-badge">{user?.username}</span><button className="text-button" onClick={handleLogout}>Cerrar sesión ↗</button></div>
       </header>
       <section className="dashboard-content">
         <div className="dashboard-heading">
@@ -106,7 +107,7 @@ export function TakeExamPage() {
   if (!exam) return <div className="page-loader">Cargando examen...</div>;
   const submit = async (event) => { event.preventDefault(); await api.createResponse({ examId: id, username: user.username, answers }); await api.clearDraft(draftKey); setDone(true); };
   if (done) return <main className="center-message"><span className="step-label">Enviado</span><h1>¡Gracias por responder!</h1><p>Tu respuesta fue registrada correctamente.</p><Link className="secondary-button" to="/examenes">Volver a exámenes</Link></main>;
-  return <main className="registration-shell"><header className="topbar"><div><span className="eyebrow">Examen de {exam.owner}</span><strong>{exam.title}</strong></div><Link className="text-button" to="/examenes">← Volver</Link></header><section className="take-content"><p>{exam.description}</p><form onSubmit={submit}>{exam.questions.map((question, index) => <label className="answer-field" key={index}><span>{index + 1}. {question.text}</span>{question.type === "choice" ? <select required={question.required} value={answers[index] || ""} onChange={(event) => setAnswers({ ...answers, [index]: event.target.value })}><option value="">Selecciona una opción</option>{question.options.filter(Boolean).map((option) => <option key={option}>{option}</option>)}</select> : <textarea required={question.required} value={answers[index] || ""} onChange={(event) => setAnswers({ ...answers, [index]: event.target.value })} />}</label>)}<button className="primary-button" type="submit">Enviar respuestas <span>→</span></button></form></section></main>;
+  return <main className="registration-shell"><header className="topbar"><div><span className="eyebrow">Examen de {exam.owner}</span><strong>{exam.title}</strong></div><div className="topbar-actions"><ThemeToggle /><Link className="text-button" to="/examenes">← Volver</Link></div></header><section className="take-content"><p>{exam.description}</p><form onSubmit={submit}>{exam.questions.map((question, index) => <label className="answer-field" key={index}><span>{index + 1}. {question.text}</span>{question.type === "choice" ? <select required={question.required} value={answers[index] || ""} onChange={(event) => setAnswers({ ...answers, [index]: event.target.value })}><option value="">Selecciona una opción</option>{question.options.filter(Boolean).map((option) => <option key={option}>{option}</option>)}</select> : <textarea required={question.required} value={answers[index] || ""} onChange={(event) => setAnswers({ ...answers, [index]: event.target.value })} />}</label>)}<button className="primary-button" type="submit">Enviar respuestas <span>→</span></button></form></section></main>;
 }
 
 export function ResultsPage() {
@@ -117,5 +118,5 @@ export function ResultsPage() {
   const [responses, setResponses] = useState([]);
   useEffect(() => { Promise.all([api.getExam(id), api.getResponses(id)]).then(([loadedExam, loadedResponses]) => { if (loadedExam.owner !== user.username) return navigate("/examenes"); setExam(loadedExam); setResponses(loadedResponses); }); }, [id, navigate, user.username]);
   if (!exam) return <div className="page-loader">Cargando resultados...</div>;
-  return <main className="registration-shell"><header className="topbar"><div><span className="eyebrow">Resultados</span><strong>{exam.title}</strong></div><Link className="text-button" to="/examenes">← Volver</Link></header><section className="results-content"><div className="results-summary"><span className="step-label">Respuestas recibidas</span><h1>{responses.length}</h1><p>participante{responses.length === 1 ? "" : "s"} contestaron tu formulario.</p></div>{responses.length === 0 ? <p className="empty-state">Aún no hay respuestas. Comparte tu examen para empezar a recibir resultados.</p> : responses.map((response) => <article className="response-card" key={response.id}><h3>{response.username}</h3><small>{new Date(response.submittedAt).toLocaleString()}</small>{exam.questions.map((question, index) => <div className="response-answer" key={index}><strong>{question.text}</strong><p>{response.answers[index] || "Sin respuesta"}</p></div>)}</article>)}</section></main>;
+  return <main className="registration-shell"><header className="topbar"><div><span className="eyebrow">Resultados</span><strong>{exam.title}</strong></div><div className="topbar-actions"><ThemeToggle /><Link className="text-button" to="/examenes">← Volver</Link></div></header><section className="results-content"><div className="results-summary"><span className="step-label">Respuestas recibidas</span><h1>{responses.length}</h1><p>participante{responses.length === 1 ? "" : "s"} contestaron tu formulario.</p></div>{responses.length === 0 ? <p className="empty-state">Aún no hay respuestas. Comparte tu examen para empezar a recibir resultados.</p> : responses.map((response) => <article className="response-card" key={response.id}><h3>{response.username}</h3><small>{new Date(response.submittedAt).toLocaleString()}</small>{exam.questions.map((question, index) => <div className="response-answer" key={index}><strong>{question.text}</strong><p>{response.answers[index] || "Sin respuesta"}</p></div>)}</article>)}</section></main>;
 }
